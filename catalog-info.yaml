@@ -1,23 +1,18 @@
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: ${{ values.name | default("terraform-aws-CHANGEME") }}
-  description: ${{ values.description | default("Terraform module for CHANGEME") }}
+  name: tf-atom-lambda-function-aws
+  description: "Terraform atom: AWS Lambda Function - creates a single Lambda function"
   annotations:
-    github.com/project-slug: PlatformStackPulse/${{ values.name | default("terraform-aws-CHANGEME") }}
+    github.com/project-slug: PlatformStackPulse/tf-atom-lambda-function-aws
     backstage.io/techdocs-ref: dir:.
-  tags:
-    - terraform
-    - aws
-    - infrastructure
+  tags: [terraform, aws, atom]
   links:
-    - url: https://github.com/PlatformStackPulse/${{ values.name | default("terraform-aws-CHANGEME") }}
+    - url: https://github.com/PlatformStackPulse/tf-atom-lambda-function-aws
       title: GitHub Repository
       icon: github
 spec:
   type: terraform-module
   lifecycle: production
-  owner: ${{ values.owner | default("platform-team") }}
-  system: ${{ values.system | default("infrastructure") }}
-  dependsOn:
-    - resource: terraform-module:PlatformStackPulse/tf-label
+  owner: platform-team
+  system: terraform-atoms
