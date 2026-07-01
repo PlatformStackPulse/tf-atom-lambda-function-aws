@@ -1,14 +1,51 @@
 # tf-atom-lambda-function-aws
 
+> Terraform atom: a single AWS Lambda function with tf-label naming/tagging.
+
 [![CI](https://github.com/PlatformStackPulse/tf-atom-lambda-function-aws/actions/workflows/ci.yml/badge.svg)](https://github.com/PlatformStackPulse/tf-atom-lambda-function-aws/actions/workflows/ci.yml)
 [![Latest Release](https://img.shields.io/github/v/release/PlatformStackPulse/tf-atom-lambda-function-aws)](https://github.com/PlatformStackPulse/tf-atom-lambda-function-aws/releases)
 ![Terraform](https://img.shields.io/badge/terraform-%3E%3D1.6.0-blueviolet)
 
 ---
 
-## Purpose
+Terraform atom that provisions a single AWS Lambda function, with tf-label naming/tagging and a togglable `enabled` switch.
 
-Terraform atom: AWS Lambda Function - creates a single Lambda function
+## Features
+
+- Creates one `aws_lambda_function` named and tagged from the tf-label context (`namespace`/`stage`/`name` → `module.this.id`).
+- Deploy from a local package (`filename`) or from S3 (`s3_bucket` + `s3_key`).
+- Configurable `handler`, `runtime` (defaults to `provided.al2023`), `timeout`, and `memory_size`, each with input validation.
+- Selectable CPU `architectures` (defaults to `["arm64"]`).
+- Optional environment variables via `environment_variables` (block is omitted when empty).
+- `enabled = false` provisions nothing (count-gated), so the module is safe to include and toggle per environment.
+- Exposes `function_arn`, `function_name`, `invoke_arn`, and `qualified_arn` outputs for wiring into API Gateway, EventBridge, or permissions.
+
+## Usage
+
+```hcl
+module "lambda" {
+  source = "git::https://github.com/PlatformStackPulse/tf-atom-lambda-function-aws.git?ref=v1.0.0"
+
+  namespace = "eg"
+  stage     = "prod"
+  name      = "api"
+
+  role_arn = aws_iam_role.lambda_exec.arn
+
+  handler       = "bootstrap"
+  runtime       = "provided.al2023"
+  timeout       = 30
+  memory_size   = 256
+  architectures = ["arm64"]
+
+  s3_bucket = "eg-prod-artifacts"
+  s3_key    = "api/bootstrap.zip"
+
+  environment_variables = {
+    LOG_LEVEL = "info"
+  }
+}
+```
 
 ## Module Documentation
 
@@ -81,3 +118,14 @@ Terraform atom: AWS Lambda Function - creates a single Lambda function
 | <a name="output_invoke_arn"></a> [invoke\_arn](#output\_invoke\_arn) | Invoke ARN of the Lambda function |
 | <a name="output_qualified_arn"></a> [qualified\_arn](#output\_qualified\_arn) | Qualified ARN of the Lambda function |
 <!-- END_TF_DOCS -->
+
+## Tests
+
+Unit tests live in `tests/unit/` and run plan-only against a mock AWS provider (no real AWS calls, no credentials required):
+
+```bash
+terraform init -backend=false && terraform test -test-directory=tests/unit
+```
+
+Or via the Makefile: `make test-unit`.
+
