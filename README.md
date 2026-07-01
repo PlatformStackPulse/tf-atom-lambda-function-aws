@@ -1,10 +1,15 @@
 # tf-atom-lambda-function-aws
 
-> Terraform atom: a single AWS Lambda function with tf-label naming/tagging.
+[![Terraform Format](https://img.shields.io/badge/terraform-fmt-blue?logo=terraform)](https://github.com/PlatformStackPulse/tf-atom-lambda-function-aws/actions)
+[![Terraform Validate](https://img.shields.io/badge/terraform-validate-blue?logo=terraform)](https://github.com/PlatformStackPulse/tf-atom-lambda-function-aws/actions)
+[![TFLint](https://img.shields.io/badge/tflint-passing-brightgreen?logo=terraform)](https://github.com/PlatformStackPulse/tf-atom-lambda-function-aws/actions)
+[![Terraform Test](https://img.shields.io/badge/tests-2%20passed-brightgreen?logo=terraform)](https://github.com/PlatformStackPulse/tf-atom-lambda-function-aws/actions)
+[![Security Scan](https://img.shields.io/badge/trivy-passing-brightgreen?logo=aqua)](https://github.com/PlatformStackPulse/tf-atom-lambda-function-aws/actions)
+[![Conventional Commits](https://img.shields.io/badge/commits-conventional-blue?logo=conventionalcommits)](https://conventionalcommits.org)
+[![Documentation](https://img.shields.io/badge/docs-terraform--docs-blue?logo=readthedocs)](https://github.com/PlatformStackPulse/tf-atom-lambda-function-aws/actions)
+[![License](https://img.shields.io/badge/license-MIT-blue?logo=opensourceinitiative)](LICENSE)
 
-[![CI](https://github.com/PlatformStackPulse/tf-atom-lambda-function-aws/actions/workflows/ci.yml/badge.svg)](https://github.com/PlatformStackPulse/tf-atom-lambda-function-aws/actions/workflows/ci.yml)
-[![Latest Release](https://img.shields.io/github/v/release/PlatformStackPulse/tf-atom-lambda-function-aws)](https://github.com/PlatformStackPulse/tf-atom-lambda-function-aws/releases)
-![Terraform](https://img.shields.io/badge/terraform-%3E%3D1.6.0-blueviolet)
+> Terraform atom: a single AWS Lambda function with tf-label naming/tagging.
 
 ---
 
